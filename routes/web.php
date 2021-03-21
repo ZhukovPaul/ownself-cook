@@ -21,9 +21,6 @@ Route::get('/', function () {
     ]);
 });
 
- 
-
-
 Route::get('/about', function () {
    // $posts = App\Models\Post::take(9)->get();
     
@@ -32,35 +29,31 @@ Route::get('/about', function () {
    
 })->name("about");
 
+Route::post('/contacts', [App\Http\Controllers\FeedBackContoller::class, 'sendEmail'] )->name("sendEmail");
 Route::get('/contacts', function () {
-   // $posts = App\Models\Post::take(9)->get();
-    
-    //dd($posts);
-     return view('page');
-   
+     return view('contacts');
 })->name("contacts");
+
+
+Route::prefix('sections')->group(function () {
  
-Route::get('/posts', function () {
-    $posts = App\Models\Post::take(9)->get();
-    return $posts;
+    Route::get('/{slug}', [App\Http\Controllers\SectionController::class, 'index'])->name("sections.index");
+    Route::get('/', [App\Http\Controllers\SectionController::class, 'list'])->name("sections");
+});
+
+Route::prefix('posts')->group(function () {
+    Route::get('/', function () {
+        $posts = App\Models\Post::take(9)->get();
+        return $posts;
+    })->name("posts");
+    
+    Route::get('/create', [App\Http\Controllers\PostController::class, 'create'] );
+    Route::get('/{slug}/edit', [App\Http\Controllers\PostController::class, 'edit']);
+    Route::get('/{section_slug}/{post_slug}', [App\Http\Controllers\PostController::class, 'show'] )->name("post.detail");
+    
+    Route::post('', [App\Http\Controllers\PostController::class, 'store'] )->name("create_post");
+    Route::put('/{slug}', [App\Http\Controllers\PostController::class, 'update']);
+    
+});
+
  
-})->name("posts");
-Route::get('/posts/create', [App\Http\Controllers\PostController::class, 'create'] );
-Route::get('/posts/{slug}', [App\Http\Controllers\PostController::class, 'show'] );
-Route::post('/posts', [App\Http\Controllers\PostController::class, 'store'] )->name("create_post");
-Route::get('/posts/{slug}/edit', [App\Http\Controllers\PostController::class, 'edit']);
-Route::put('/posts/{slug}', [App\Http\Controllers\PostController::class, 'update']);
-/*
-Route::get('/posts/{slug}/edit', function ($slug) {
-    $post = App\Models\Post::where( 'slug' , $slug )->first();
-    
-    if(!$post) abort(404);
-    
-    return view('posts.edit',[
-        'post' => $post
-    ]);
-});*/
-/*
-Route::put('/posts/{id}', function ($id) {
-    return $id;
-});*/

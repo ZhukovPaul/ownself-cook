@@ -69,7 +69,7 @@
                                     <nav>                  
                                         <ul id="navigation">    
                                             <li><a href="/">Главная</a></li>
-                                            <li><a href="{{route('posts')}}">Категории</a></li>
+                                            <li><a href="{{route('sections')}}">Категории</a></li>
                                             <li><a href="{{route('about')}}">О нас</a></li>
                                             <li><a href="{{route('posts')}}">Последние новости</a></li>
                                             <li><a href="{{route('contacts')}}">Конакты</a></li>
