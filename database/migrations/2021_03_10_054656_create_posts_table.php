@@ -13,14 +13,18 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string("slug")->unique();
-            $table->string("image");
-            $table->string("title");
-            $table->text("description");
-        });
+        if(!Schema::hasTable('posts')){
+            Schema::create('posts', function (Blueprint $table) {
+                $table->id();
+               // $table->unsignedBigInteger('section_id');
+                $table->foreignId("section_id")->constrained("sections");
+                $table->timestamps();
+                $table->string("slug")->unique();
+                $table->string("image");
+                $table->string("title");
+                $table->text("description");
+            });
+        }
     }
 
     /**

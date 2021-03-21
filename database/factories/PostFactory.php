@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Post;
+use App\Models\Section;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostFactory extends Factory
@@ -21,12 +22,14 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        //$section =  App\Models\Section::find(\rand(1,10) )->id;
+
         return [
-            //
-            "slug"=>$this->faker->slug(2),
-            "title"=>$this->faker->name,
-            "image"=>$this->faker->imageUrl(360, 360, 'animals', true, 'cats'),
-            "description"=>$this->faker->text,
+            "section_id"    =>  \App\Models\Section::find( \rand(1,10) )->id,
+            "slug"          =>  $this->faker->slug(3),
+            "title"         =>  $this->faker->name,
+            "image"         =>  $this->faker->imageUrl(360, 360, 'animals', true, 'cats'),
+            "description"   =>  $this->faker->text,
         ];
     }
 }

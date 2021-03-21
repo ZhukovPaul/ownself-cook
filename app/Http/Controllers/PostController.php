@@ -52,9 +52,9 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($section_slug,$post_slug)
     {
-        $post = \App\Models\Post::where( 'slug' , $slug )->first();
+        $post = \App\Models\Post::where( 'slug' , $post_slug )->first();
         
         if(!$post) abort(404);
 
